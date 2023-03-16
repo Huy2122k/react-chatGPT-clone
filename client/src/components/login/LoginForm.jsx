@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import SvgComponent from "../SvgComponent";
-import "../signup/signupform.css";
 
 const SignupForm = () => {
   const [loginEmail, setLoginEmail] = useState("");
