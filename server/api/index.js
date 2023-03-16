@@ -6,7 +6,7 @@ const port = 4000;
 
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -17,21 +17,22 @@ const cors = require("cors");
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("/", async(req, res) => {
-    res.json({message : "Hello world!"});
+app.get("/", async (req, res) => {
+  res.json({ message: "Hello world!" });
 });
 
-app.post("/", async(req, res) => {
-    const { message } = req.body;
-    const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: message,
-        max_tokens: 3000,
-        temperature: 0.3,
-    });
-    res.json({ botResponse: response.data.choices[0].text });
+app.post("/", async (req, res) => {
+  const { message } = req.body;
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: message,
+    max_tokens: 3000,
+    temperature: 0.3,
+  });
+  res.json({ botResponse: response.data.choices[0].text });
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port ${port}`);
 });
+module.exports = app;
