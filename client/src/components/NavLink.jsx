@@ -9,7 +9,7 @@ const NavLinks = ({ svg, link, text, setChatLog }) => {
     if (text === "Log out") {
       try {
         // let logOut = await signOut(auth);
-        console.log("logOut", logOut);
+        // console.log("logOut", logOut);
         dispatch({ type: "LOGOUT" });
       } catch (error) {
         console.log("error happen during sign out", error);
