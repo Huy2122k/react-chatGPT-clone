@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase.config";
 import { AuthContext } from "../context/AuthContext";
 
 const NavLinks = ({ svg, link, text, setChatLog }) => {
@@ -10,7 +8,7 @@ const NavLinks = ({ svg, link, text, setChatLog }) => {
     if (text === "Clear Conversations") setChatLog([]);
     if (text === "Log out") {
       try {
-        let logOut = await signOut(auth);
+        // let logOut = await signOut(auth);
         console.log("logOut", logOut);
         dispatch({ type: "LOGOUT" });
       } catch (error) {

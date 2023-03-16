@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
-import "../signup/signupform.css";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, goggleAuthProvider } from "../../firebase.config";
-import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import SvgComponent from "../SvgComponent";
+import "../signup/signupform.css";
 
 const SignupForm = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -19,29 +17,38 @@ const SignupForm = () => {
     e.preventDefault();
 
     try {
-      let userCredential = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      const user = userCredential.user;
+      if (loginEmail !== "admin@gmail,com" || loginPassword !== "huyhehehe") {
+        setErrorMessage("wrong password");
+        return;
+      }
+      const user = {
+        uid: "FO4ztpD1jHTnokz2xd7NLnoNi7L2",
+        email: "admin@gmail.com",
+        emailVerified: false,
+        isAnonymous: false,
+        providerData: [
+          {
+            providerId: "password",
+            uid: "admin@gmail.com",
+            displayName: null,
+            email: "admin@gmail.com",
+            phoneNumber: null,
+            photoURL: null,
+          },
+        ],
+        stsTokenManager: {
+          refreshToken:
+            "APJWN8fNpdl_ygkBnyIC8yEGLSO14Mj_InjzTMNlt_VsoAx-xJ_uZ-2gaVRJGhyxJktdw7HSrYQjyOSJB41eL5V4_nQ6v_0_VoSWGOa72HWjyzx9SjI6K4e28Ng7Fe2Vnp2Xeth9y9vAgt4CyTDIZvEPnHS8h_9tZNwojONlq38BycY5eUHyf77i3JXGm6vhZJ20GbH1y6fi",
+          accessToken:
+            "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU4ODI0YTI2ZjFlY2Q1NjEyN2U4OWY1YzkwYTg4MDYxMTJhYmU5OWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdGFsa2JvdC0xNjY1ZSIsImF1ZCI6InRhbGtib3QtMTY2NWUiLCJhdXRoX3RpbWUiOjE2Nzg5ODU1MDksInVzZXJfaWQiOiJGTzR6dHBEMWpIVG5va3oyeGQ3Tkxub05pN0wyIiwic3ViIjoiRk80enRwRDFqSFRub2t6MnhkN05Mbm9OaTdMMiIsImlhdCI6MTY3ODk4NTUwOSwiZXhwIjoxNjc4OTg5MTA5LCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJhZG1pbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.sv8QvOpqNfZSK30zbSYQ90DRjTci0vZqa_dh7mbHLWEQugdP-gb15kX68XlaNO4nVZIz98ZAEAXGajXSNWuo-BK63UTelSdjrIsNfliwPVo1_fCjwqh8s-PuEI5jkFUTphtrfHfpdC_saD4_ElebtdSiMh_lY96x94YF39hQEz21-VqmY5putAcF1z2NMt8_hs4sykvX3dsR0lCOPcDcnIHmeuUawHi8SKe9HHFyKl7Fdm3oEbU5Nh5fc73SMf3icgIx-Re-zY-NuynrxVNjyzv_U5KAaiGdvtFPKiGJWFzfohZ0C0q-dHd98jQF_akqZoAYw5AYo_yntKIwcMoBvA",
+          expirationTime: 1678989110644,
+        },
+        createdAt: "1678985509187",
+        lastLoginAt: "1678985509187",
+        apiKey: "AIzaSyCLjAz8t-56KDo_NDVc_v8ZCHFWKXNee40",
+        appName: "[DEFAULT]",
+      };
       dispatch({ type: "LOGIN", payload: user });
-      // once user is signed in navigate them to the home page
-      navigate("/");
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      setErrorMessage(errorMessage);
-    }
-  };
-
-  const handleSignInWithGoggle = async () => {
-    try {
-      let userCredential = await signInWithPopup(auth, goggleAuthProvider);
-      const user = userCredential.user;
-      dispatch({ type: "LOGIN", payload: user });
-      console.log("user", user);
       // once user is signed in navigate them to the home page
       navigate("/");
     } catch (error) {
@@ -122,8 +129,8 @@ const SignupForm = () => {
         <button type="submit">Continue</button>
         {errorMessage.trim() !== " " && <span>{errorMessage}</span>}
       </form>
-      <div className="signupSeparator">OR</div>
-      <button id="signupWithGoggle" onClick={handleSignInWithGoggle}>
+      {/* <div className="signupSeparator">OR</div> */}
+      {/* <button id="signupWithGoggle" onClick={handleSignInWithGoggle}>
         <i>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +157,7 @@ const SignupForm = () => {
           </svg>
         </i>
         Continue with Goggle
-      </button>
+      </button> */}
     </div>
   );
 };
