@@ -25,17 +25,11 @@ app.post("/", async (req, res) => {
   const { message } = req.body;
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "system",
-        content: "You are a helpful assistant. Keep your answer short.",
-      },
-      { role: "user", content: `${message}` },
-    ],
+    messages: [{ role: "user", content: `${message}` }],
     max_tokens: 4096,
     temperature: 0.3,
   });
-  res.json({ botResponse: response.data.choices[0].text });
+  res.json({ botResponse: response.data.choices[0].message.content });
 });
 
 app.listen(port, () => {
