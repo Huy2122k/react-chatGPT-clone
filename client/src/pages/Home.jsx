@@ -32,7 +32,7 @@ const Home = () => {
 
       async function callAPI() {
         try {
-          const response = await fetch("https://huyhuy-gpt.vercel.app/", {
+          const response = await fetch("https://huyhuy-gpt.onrender.com/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: inputPrompt }),
