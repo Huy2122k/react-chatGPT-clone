@@ -41,4 +41,6 @@ app.post("/", async (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+app.setTimeout(5000000);
+
 module.exports = app;
