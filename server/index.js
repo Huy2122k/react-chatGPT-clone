@@ -22,14 +22,19 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const { message } = req.body;
-  const response = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: `${message}` }],
-    max_tokens: 4000,
-    temperature: 0.3,
-  });
-  res.json({ botResponse: response.data.choices[0].message.content });
+  try {
+    const { message } = req.body;
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: `${message}` }],
+      max_tokens: 4000,
+      temperature: 0.3,
+    });
+    res.json({ botResponse: response.data.choices[0].message.content });
+  } catch (error) {
+    console.log(error);
+    res.json({ botResponse: error.message });
+  }
 });
 
 app.listen(port, () => {
