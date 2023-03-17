@@ -42,6 +42,6 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-server.timeout = 120000;
+app.timeout = 120000;
 
 module.exports = app;
